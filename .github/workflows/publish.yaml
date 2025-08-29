@@ -1,17 +1,13 @@
 name: Publish to Maven Central
 
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
 
 jobs:
   publish:
+    if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
-    env:
-      GROUP_ID: dev.datastar.kotlin
-      ARTIFACT_ID: kotlin-sdk
-    
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -20,29 +16,17 @@ jobs:
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Set version from release
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
       - name: Package
         run: >
           ./gradlew clean build -x check
-          -PgroupId=${{ env.GROUP_ID }}
-          -PartifactId=${{ env.ARTIFACT_ID }}
-          -Pversion=${{ env.VERSION }}
 
       - name: Stage Artifacts
         run: >
           ./gradlew publish --no-configuration-cache
-          -PgroupId=${{ env.GROUP_ID }}
-          -PartifactId=${{ env.ARTIFACT_ID }}
-          -Pversion=${{ env.VERSION }}
 
       - name: Publish to Maven Central
         run: >
           ./gradlew jreleaserDeploy --no-configuration-cache
-          -PgroupId=${{ env.GROUP_ID }}
-          -PartifactId=${{ env.ARTIFACT_ID }}
-          -Pversion=${{ env.VERSION }}
 
         env:
           JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.MAVEN_USERNAME }}

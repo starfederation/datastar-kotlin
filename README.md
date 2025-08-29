@@ -19,7 +19,7 @@ The minimum JVM version compatible is **Java 21**.
 
 ```kotlin
 dependencies {
-    implementation("dev.datastar.kotlin:kotlin-sdk:...")
+    implementation("dev.datastar.kotlin:kotlin-sdk:1.0.0-RC1")
 }
 ```
 
@@ -30,7 +30,7 @@ dependencies {
 <dependency>
     <groupId>dev.datastar.kotlin</groupId>
     <artifactId>kotlin-sdk</artifactId>
-    <version>...</version>
+    <version>1.0.0-RC1</version>
 </dependency>
 ```
 
@@ -42,9 +42,9 @@ The following shows a simple implementation base of the Java `HttpServer`.
 
 ```kotlin
 //  Depending on your context, you'll need to adapt the `Request` and `Response` interfaces, as well as implementation of the `JsonUnmarshaller` type.
-val jsonUnmarshaller: JsonUnmarshaller<YourType> = ...
-val request: Request = ...
-val response: Response = ...
+val jsonUnmarshaller: JsonUnmarshaller<YourType> = "... you implementation"
+val request: Request = "... you implementation"
+val response: Response = "... you implementation"
 
 // The `readSignals` method extracts the signals from the request.
 // If you use a web framework, you likely don't need this since the framework probably already handles this in its own way.
