@@ -29,3 +29,11 @@ This example uses the plain Java `HttpServer` to serve the front end. ([code](ja
 ```shell
 cd ./java-httpserver ; jbang server.kt ; cd ..
 ```
+
+### Ktor
+
+This example uses the `Ktor` to serve the front end. ([code](ktor/server.kt))
+
+```shell
+cd ./ktor ; jbang server.kt ; cd ..
+```
