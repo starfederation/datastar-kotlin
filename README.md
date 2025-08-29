@@ -49,11 +49,9 @@ val response: Response = ...
 // The `readSignals` method extracts the signals from the request.
 // If you use a web framework, you likely don't need this since the framework probably already handles this in its own way.
 // However, this method in the SDK allows you to provide your own unmarshalling strategy so you can adapt it to your preferred technology!
-val request: Request = adaptRequest(exchange)
-val signals = readSignals<EventsWrapper>(request, jsonUnmarshaller)
+val signals = readSignals<YourType>(request, jsonUnmarshaller)
 
 // Connect a Datastar SSE generator to the response.
-val response: Response = adaptResponse(exchange)
 val generator = ServerSentEventGenerator(response)
 
 // Below are some simple examples of how to use the generator.
