@@ -48,6 +48,9 @@ fun server(
                 this@sseContext.patchElements(
                     """<span id="counter">${event}</span>"""
                 )
+                if (event == 3) {
+                    this@sseContext.executeScript("""alert('Thanks for trying Datastar!')""")
+                }
             }
         }
     }
