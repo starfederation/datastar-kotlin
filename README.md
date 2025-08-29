@@ -41,77 +41,41 @@ The SDK offers APIs to abstract the Datastar protocol while allowing you to adap
 The following shows a simple implementation base of the Java `HttpServer`.
 
 ```kotlin
+//  Depending on your context, you'll need to adapt the `Request` and `Response` interfaces, as well as implementation of the `JsonUnmarshaller` type.
+val jsonUnmarshaller: JsonUnmarshaller<YourType> = ...
+val request: Request = ...
+val response: Response = ...
 
-val server = HttpServer.create(
-    InetSocketAddress(8080), // Port used
-    0,                       // Backlog, 0 means default
-    "/",                     // Path
-    { exchange ->            // Exchange handler
+// The `readSignals` method extracts the signals from the request.
+// If you use a web framework, you likely don't need this since the framework probably already handles this in its own way.
+// However, this method in the SDK allows you to provide your own unmarshalling strategy so you can adapt it to your preferred technology!
+val request: Request = adaptRequest(exchange)
+val signals = readSignals<EventsWrapper>(request, jsonUnmarshaller)
 
-        // The `readSignals` method extracts the signals from the request.
-        // If you use a web framework, you likely don't need this since the framework probably already handles this in its own way.
-        // However, this method in the SDK allows you to provide your own unmarshalling strategy so you can adapt it to your preferred technology!
-        val request: Request = adaptRequest(exchange)
-        val signals = readSignals<EventsWrapper>(request, jsonUnmarshaller)
+// Connect a Datastar SSE generator to the response.
+val response: Response = adaptResponse(exchange)
+val generator = ServerSentEventGenerator(response)
 
-        // Connect a Datastar SSE generator to the response.
-        val response: Response = adaptResponse(exchange)
-        val generator = ServerSentEventGenerator(response)
-
-
-        // Below are some simple examples of how to use the generator.
-        generator.patchElements(
-            elements = "<div>Merge</div>",
-        )
-
-        generator.patchSignals(
-            signals =
-                """
-                {
-                  "one":1,
-                  "two":2
-                }
-                """.trimIndent(),
-        )
-
-        generator.executeScript(
-            script = "alert('Hello World!')",
-        )
-
-        exchange.close()
-    }
+// Below are some simple examples of how to use the generator.
+generator.patchElements(
+    elements = "<div>Merge</div>",
 )
 
-fun adaptRequest(exchange: HttpExchange): Request = object : Request {
-    override fun bodyString() = exchange.requestBody.use { it.readAllBytes().decodeToString() }
+generator.patchSignals(
+    signals =
+        """
+        {
+          "one":1,
+          "two":2
+        }
+        """,
+)
 
-    override fun isGet() = exchange.requestMethod == "GET"
-
-    override fun readParam(string: String) =
-        exchange.requestURI.query
-            ?.let { URLDecoder.decode(it, Charsets.UTF_8) }
-            ?.split("&")
-            ?.find { it.startsWith("$string=") }
-            ?.substringAfter("=")!!
-}
-
-fun adaptResponse(exchange: HttpExchange): Response = object : Response {
-
-    override fun sendConnectionHeaders(
-        status: Int,
-        headers: Map<String, List<String>>,
-    ) {
-        exchange.responseHeaders.putAll(headers)
-        exchange.sendResponseHeaders(status, 0)
-    }
-
-    override fun write(text: String) {
-        exchange.responseBody.write(text.toByteArray())
-    }
-
-    override fun flush() {
-        exchange.responseBody.flush()
-    }
-
-}
+generator.executeScript(
+    script = "alert('Hello World!')",
+)
 ```
+
+### Examples
+
+You can find runnable examples of how to use the SDK in multiple concrete web application frameworks and contexts in the [examples](examples/README.md) folder.

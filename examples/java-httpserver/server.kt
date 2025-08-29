@@ -15,10 +15,9 @@ import java.util.concurrent.Executors
 //DEPS org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2
 
 
-fun main() {
-    val server = server()
-    server.start()
-    println("Server started on port ${server.address.port}")
+fun main(): Unit = server().run {
+    start()
+    println("Let's go counting star... http://localhost:${address.port}")
 }
 
 fun server(
