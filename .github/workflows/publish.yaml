@@ -5,6 +5,7 @@ on:
 
 jobs:
   publish:
+    if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
 
     steps:
