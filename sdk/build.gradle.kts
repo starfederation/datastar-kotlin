@@ -97,7 +97,7 @@ publishing {
                 licenses {
                     license {
                         name = "MIT"
-                        url = "https://mit-license.org/"
+                        url = "https://github.com/starfederation/datastar/blob/develop/LICENSE.md"
                     }
                 }
                 developers {
