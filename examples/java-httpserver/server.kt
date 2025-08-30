@@ -11,7 +11,7 @@ import java.util.concurrent.Executors
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 21
 //KOTLIN 2.2.0
-//DEPS dev.cloudgt.datastar:kotlin-sdk:0.1.0
+//DEPS dev.data-star.kotlin:kotlin-sdk:1.0.0-RC1
 //DEPS org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2
 
 
