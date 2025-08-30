@@ -17,7 +17,7 @@ import java.io.Writer
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 21
 //KOTLIN 2.2.0
-//DEPS dev.cloudgt.datastar:kotlin-sdk:0.1.0
+//DEPS dev.data-star.kotlin:kotlin-sdk:1.0.0-RC1
 //DEPS io.ktor:ktor-server-core-jvm:3.2.3
 //DEPS io.ktor:ktor-server-netty-jvm:3.2.3
 
