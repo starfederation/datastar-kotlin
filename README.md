@@ -19,7 +19,7 @@ The minimum JVM version compatible is **Java 21**.
 
 ```kotlin
 dependencies {
-    implementation("dev.datastar.kotlin:kotlin-sdk:1.0.0-RC1")
+    implementation("dev.cloudgt.datastar.kotlin:kotlin-sdk:1.0.0-RC1")
 }
 ```
 
@@ -28,7 +28,7 @@ dependencies {
 ```xml
 
 <dependency>
-    <groupId>dev.datastar.kotlin</groupId>
+    <groupId>dev.cloudgt.datastar.kotlin</groupId>
     <artifactId>kotlin-sdk</artifactId>
     <version>1.0.0-RC1</version>
 </dependency>
