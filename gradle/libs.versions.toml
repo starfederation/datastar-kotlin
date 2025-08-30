@@ -15,6 +15,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 spotless = { id = "com.diffplug.spotless", version = "7.2.1" }
 kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.1" }
 jreleaser = { id = "org.jreleaser", version = "1.19.0" }
+changelog = { id = "org.jetbrains.changelog", version = "2.4.0" }
 
 [bundles]
 kotest = ["kotest-assertions"]
