@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.spotless)
     alias(libs.plugins.kover)
     alias(libs.plugins.jreleaser)
-    alias(libs.plugins.changelog)
     `java-library`
     `maven-publish`
 }
