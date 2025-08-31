@@ -3,8 +3,9 @@
 * [About the examples](#about-the-examples)
 * [Running the examples](#running-the-examples)
     * [Prerequisites](#prerequisites)
-    * [Java HTTP Server](#java-http-server)
+    * [Spring](#spring)
     * [Ktor](#ktor)
+    * [Java HTTP Server](#java-http-server)
 
 ## About the examples
 
@@ -20,8 +21,24 @@ All are a simple counter implemented using Datastar server-sent events.
 
 To make the examples work as simply as possible, each back implementation is a JBang script.
 
-JBang is a tool that allows to run Kotlin scripts taking care of all the dependencies without the need to use more heavy weight tools like Maven or Gradle.  
+JBang is a tool that allows to run Kotlin scripts taking care of all the dependencies without the need to use more heavyweight tools like Maven or Gradle.  
 You can find the installation instructions on the [official documentation](https://www.jbang.dev/documentation/jbang/latest/installation.html).
+
+### Spring
+
+This example uses `Spring` to serve the front end. ([code](spring/server.kt))
+
+```shell
+cd ./spring ; jbang server.kt ; cd ..
+```
+
+### Ktor
+
+This example uses `Ktor` to serve the front end. ([code](ktor/server.kt))
+
+```shell
+cd ./ktor ; jbang server.kt ; cd ..
+```
 
 ### Java HTTP Server
 
@@ -31,10 +48,3 @@ This example uses the plain Java `HttpServer` to serve the front end. ([code](ja
 cd ./java-httpserver ; jbang server.kt ; cd ..
 ```
 
-### Ktor
-
-This example uses the `Ktor` to serve the front end. ([code](ktor/server.kt))
-
-```shell
-cd ./ktor ; jbang server.kt ; cd ..
-```
