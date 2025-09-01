@@ -6,5 +6,7 @@ rootProject.name = "datastar-kotlin"
 
 include("sdk")
 
+includeBuild("examples/spring/spring-web-example")
+includeBuild("examples/spring/spring-webflux-example")
 includeBuild("examples/quarkus/quarkus-rest-example")
 includeBuild("examples/quarkus/quarkus-qute-example")

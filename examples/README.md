@@ -26,11 +26,9 @@ You can find the installation instructions on the [official documentation](https
 
 ### Spring
 
-This example uses `Spring` to serve the front end. ([code](spring/server.kt))
+These examples use `Spring` to serve the front end. ([code](spring/server.kt))
 
-```shell
-cd ./spring ; jbang server.kt ; cd ..
-```
+- [Spring Web](spring/spring-web-example/src/main/kotlin/dev/datastar/kotlin/examples/spring/web/SpringWebExampleApplication.kt): Demonstrates reactive integration with Spring Web.
 
 ### Quarkus
 
