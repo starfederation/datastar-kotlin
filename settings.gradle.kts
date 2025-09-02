@@ -5,3 +5,5 @@ plugins {
 rootProject.name = "datastar-kotlin"
 
 include("sdk")
+
+includeBuild("examples/quarkus-example")
