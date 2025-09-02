@@ -7,3 +7,4 @@ rootProject.name = "datastar-kotlin"
 include("sdk")
 
 includeBuild("examples/quarkus-example")
+includeBuild("examples/quarkus-qute-example")
