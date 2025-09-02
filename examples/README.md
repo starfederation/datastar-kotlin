@@ -32,6 +32,13 @@ This example uses `Spring` to serve the front end. ([code](spring/server.kt))
 cd ./spring ; jbang server.kt ; cd ..
 ```
 
+### Quarkus
+
+These examples use `Quarkus` to serve the front end.
+
+- [Quarkus Qute](quarkus/quarkus-qute-example/src/main/kotlin/dev/datastar/kotlin/QuteCounterApp.kt): Demonstrates simple integration with Qute templates.
+- [Quarkus Rest](quarkus/quarkus-rest-example/src/main/kotlin/dev/datastar/kotlin/CounterApp.kt) : Demonstrates reactive integration with Quarkus only.
+
 ### Ktor
 
 This example uses `Ktor` to serve the front end. ([code](ktor/server.kt))

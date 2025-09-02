@@ -10,7 +10,6 @@ import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.StreamingOutput
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
-import java.io.File
 import java.io.Writer
 
 @Path("/")
@@ -21,21 +20,18 @@ class CounterApp {
     @GET
     @Produces(MediaType.TEXT_HTML)
     fun index(): String {
-        val file = File(
-            "../../../../../front/counter.html"
-        )
-        println(file.absolutePath)
-        return file.readText()
+        return this::class.java.classLoader.getResource("counter.html")?.readText()
+            ?: throw IllegalStateException("counter.html not found in resources")
     }
 
     @GET
     @Path("/counter")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     fun counter() = StreamingOutput { output ->
-        runBlocking {
-            val writer = output.writer()
-            val generator = ServerSentEventGenerator(adaptResponse(writer))
+        val writer = output.writer()
+        val generator = ServerSentEventGenerator(adaptResponse(writer))
 
+        runBlocking {
             counter.collect { event ->
                 generator.patchElements("""<span id="counter">${event}</span>""")
 
