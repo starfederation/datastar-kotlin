@@ -21,16 +21,14 @@ These examples use `Spring` to serve the front end.
 
 These examples use `Quarkus` to serve the front end.
 
-- [Quarkus Rest](quarkus/quarkus-rest-example/src/main/kotlin/dev/datastar/kotlin/CounterApp.kt) : Demonstrates integration with Quarkus Rest.
+- [Quarkus Rest](quarkus/quarkus-rest-example/src/main/kotlin/dev/datastar/kotlin/CounterApp.kt): Demonstrates integration with Quarkus Rest.
 - [Quarkus Qute](quarkus/quarkus-qute-example/src/main/kotlin/dev/datastar/kotlin/QuteCounterApp.kt): Demonstrates integration with Qute templates as templating engine.
 
 ## Ktor
 
-This example uses `Ktor` to serve the front end. ([code](ktor/server.kt))
+This example uses `Ktor` to serve the front end.
 
-```shell
-cd ./ktor ; jbang server.kt ; cd ..
-```
+- [Ktor Routing](ktor/ktor-example/src/main/kotlin/Application.kt): Demonstrates integration with Ktor Routing.
 
 ## Java HTTP Server
 
