@@ -1,42 +1,34 @@
+package dev.datastar.kotlin
+
 import dev.datastar.kotlin.sdk.Response
 import dev.datastar.kotlin.sdk.ServerSentEventGenerator
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode.Companion.NoContent
 import io.ktor.http.HttpStatusCode.Companion.OK
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
+import io.ktor.server.application.Application
 import io.ktor.server.response.respondBytes
 import io.ktor.server.response.respondTextWriter
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.io.File
 import java.io.Writer
 
-///usr/bin/env jbang "$0" "$@" ; exit $?
-//JAVA 21
-//KOTLIN 2.2.0
-//DEPS dev.data-star.kotlin:kotlin-sdk:1.0.0-RC1
-//DEPS io.ktor:ktor-server-core-jvm:3.2.3
-//DEPS io.ktor:ktor-server-netty-jvm:3.2.3
-
-
-fun main() {
-    server().run {
-        println("Let's go counting star... http://localhost:8080")
-        start(wait = true)
-    }
+fun main(args: Array<String>) {
+    io.ktor.server.netty.EngineMain.main(args)
 }
 
-fun server(
-    counter: MutableStateFlow<Int> = MutableStateFlow(0),
-) = embeddedServer(Netty, port = 8080) {
+fun Application.module() {
+    configureRouting()
+}
 
-    val counterPage = File(
-        "../front/counter.html"
-    ).readBytes()
+val counter = MutableStateFlow(0)
 
+val counterPage = object {}.javaClass.classLoader.getResourceAsStream(
+    "counter.html"
+)?.readBytes()!!
+
+fun Application.configureRouting() {
     routing {
 
         get("/") {
@@ -76,6 +68,7 @@ fun server(
         }
 
     }
+
 }
 
 private fun adaptResponse(writer: Writer): Response =
@@ -95,3 +88,4 @@ private fun adaptResponse(writer: Writer): Response =
             writer.flush()
         }
     }
+
