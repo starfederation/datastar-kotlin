@@ -1,45 +1,30 @@
 # Datastar Kotlin Examples
 
-* [About the examples](#about-the-examples)
-* [Running the examples](#running-the-examples)
-    * [Prerequisites](#prerequisites)
-    * [Spring](#spring)
-    * [Ktor](#ktor)
-    * [Java HTTP Server](#java-http-server)
+[//]: # (@formatter:off)
+<!-- TOC -->
+* [Datastar Kotlin Examples](#datastar-kotlin-examples)
+  * [Spring](#spring)
+  * [Quarkus](#quarkus)
+  * [Ktor](#ktor)
+  * [Java HTTP Server](#java-http-server)
+<!-- TOC -->
+[//]: # (@formatter:on)
 
-## About the examples
+## Spring
 
-This directory contains examples of using Datastar in Kotlin.  
-All are a simple counter implemented using Datastar server-sent events.
+These examples use `Spring` to serve the front end.
 
-- the front end consists in a single HTML page located in the `front` directory
-- each back implementation is in a separate directory, consisting in a single Kotlin file
+- [Spring Web](spring/spring-web-example/src/main/kotlin/dev/datastar/kotlin/examples/spring/web/SpringWebExampleApplication.kt): Demonstrates integration with Spring Web.
+- [Spring Webflux](spring/spring-webflux-example/src/main/kotlin/dev/datastar/kotlin/examples/spring/webflux/SpringWebfluxExampleApplication.kt): Demonstrates reactive integration with Spring Webflux.
 
-## Running the examples
-
-### Prerequisites
-
-To make the examples work as simply as possible, each back implementation is a JBang script.
-
-JBang is a tool that allows to run Kotlin scripts taking care of all the dependencies without the need to use more heavyweight tools like Maven or Gradle.  
-You can find the installation instructions on the [official documentation](https://www.jbang.dev/documentation/jbang/latest/installation.html).
-
-### Spring
-
-This example uses `Spring` to serve the front end. ([code](spring/server.kt))
-
-```shell
-cd ./spring ; jbang server.kt ; cd ..
-```
-
-### Quarkus
+## Quarkus
 
 These examples use `Quarkus` to serve the front end.
 
-- [Quarkus Qute](quarkus/quarkus-qute-example/src/main/kotlin/dev/datastar/kotlin/QuteCounterApp.kt): Demonstrates simple integration with Qute templates.
-- [Quarkus Rest](quarkus/quarkus-rest-example/src/main/kotlin/dev/datastar/kotlin/CounterApp.kt) : Demonstrates reactive integration with Quarkus only.
+- [Quarkus Rest](quarkus/quarkus-rest-example/src/main/kotlin/dev/datastar/kotlin/CounterApp.kt) : Demonstrates integration with Quarkus Rest.
+- [Quarkus Qute](quarkus/quarkus-qute-example/src/main/kotlin/dev/datastar/kotlin/QuteCounterApp.kt): Demonstrates integration with Qute templates as templating engine.
 
-### Ktor
+## Ktor
 
 This example uses `Ktor` to serve the front end. ([code](ktor/server.kt))
 
@@ -47,7 +32,7 @@ This example uses `Ktor` to serve the front end. ([code](ktor/server.kt))
 cd ./ktor ; jbang server.kt ; cd ..
 ```
 
-### Java HTTP Server
+## Java HTTP Server
 
 This example uses the plain Java `HttpServer` to serve the front end. ([code](java-httpserver/server.kt))
 
