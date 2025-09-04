@@ -122,7 +122,7 @@ class DocSnippetsTests {
         )
 
         generator.patchSignals(
-            signals = """{response: '', answer: 'bread'}""",
+            signals = """{"response": "", "answer": "bread"}""",
         )
         // SNIPPET END
 
@@ -133,7 +133,7 @@ class DocSnippetsTests {
             data: elements <div id="question">What do you put in a toaster?</div>
             
             event: datastar-patch-signals
-            data: signals {response: '', answer: 'bread'}
+            data: signals {"response": "", "answer": "bread"}
 
 
             """.trimIndent()
@@ -155,7 +155,7 @@ class DocSnippetsTests {
         )
 
         generator.patchSignals(
-            signals = """{answer: '...', prize: '...'}""",
+            signals = """{"answer": "...", "prize": "..."}""",
         )
         // SNIPPET END
 
@@ -169,7 +169,7 @@ class DocSnippetsTests {
             data: elements <div id="instructions">...</div>
             
             event: datastar-patch-signals
-            data: signals {answer: '...', prize: '...'}
+            data: signals {"answer": "...", "prize": "..."}
 
 
             """.trimIndent()
