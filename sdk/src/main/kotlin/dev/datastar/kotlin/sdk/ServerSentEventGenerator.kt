@@ -104,7 +104,7 @@ interface ServerSentEventGenerator {
      *                 These include the element selector, patch mode, view transition usage, event ID, and retry duration.
      */
     fun patchElements(
-        elements: String?,
+        elements: String? = null,
         options: PatchElementsOptions = PatchElementsOptions(),
     )
 
@@ -146,6 +146,11 @@ interface ServerSentEventGenerator {
         options: ExecuteScriptOptions = ExecuteScriptOptions(),
     )
 }
+
+fun ServerSentEventGenerator.redirect(url: String) =
+    executeScript(
+        script = "setTimeout(() => window.location = '$url')",
+    )
 
 enum class EventType(
     val value: String,
