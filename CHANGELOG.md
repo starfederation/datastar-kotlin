@@ -7,6 +7,15 @@ Datastar Kotlin SDK updates.
 ### Added
 
 - Added `ServerSentEventGenerator.redirect` specialized helper method to send a script that will redirect the browser to a new URL.
+- Added integration examples for
+    - Spring Boot
+        - Web MVC
+        - WebFlux
+    - Quarkus
+        - Rest
+        - Rest + Qute
+    - Ktor
+    - Java HTTP Server
 
 ### Changed
 
