@@ -19,7 +19,7 @@ The minimum JVM version compatible is **Java 21**.
 
 ```kotlin
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC1")
+    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC2")
 }
 ```
 
@@ -30,7 +30,7 @@ dependencies {
 <dependency>
     <groupId>dev.data-star.kotlin</groupId>
     <artifactId>kotlin-sdk</artifactId>
-    <version>1.0.0-RC1</version>
+    <version>1.0.0-RC2</version>
 </dependency>
 ```
 

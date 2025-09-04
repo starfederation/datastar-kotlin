@@ -12,7 +12,7 @@ application {
 }
 
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC1")
+    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 }
 
