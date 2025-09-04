@@ -32,9 +32,7 @@ This example uses `Ktor` to serve the front end.
 
 ## Java HTTP Server
 
-This example uses the plain Java `HttpServer` to serve the front end. ([code](java-httpserver/server.kt))
+This example uses the plain Java `HttpServer` to serve the front end.
 
-```shell
-cd ./java-httpserver ; jbang server.kt ; cd ..
-```
+- [Java HTTP Server](java-httpserver/src/main/kotlin/dev/datastar/kotlin/examples/httpserver/Application.kt): Demonstrates integration with Java HTTP Server.
 

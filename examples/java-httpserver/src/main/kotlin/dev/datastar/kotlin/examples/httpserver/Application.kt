@@ -1,18 +1,13 @@
+package dev.datastar.kotlin.examples.httpserver
+
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
 import dev.datastar.kotlin.sdk.Response
 import dev.datastar.kotlin.sdk.ServerSentEventGenerator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
-import java.io.File
 import java.net.InetSocketAddress
 import java.util.concurrent.Executors
-
-///usr/bin/env jbang "$0" "$@" ; exit $?
-//JAVA 21
-//KOTLIN 2.2.0
-//DEPS dev.data-star.kotlin:kotlin-sdk:1.0.0-RC1
-//DEPS org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2
 
 
 fun main(): Unit = server().run {
@@ -29,9 +24,9 @@ fun server(
 
     executor = Executors.newVirtualThreadPerTaskExecutor()
 
-    val counterPage = File(
-        "../front/counter.html"
-    ).readBytes()
+    val counterPage = object {}.javaClass.classLoader.getResource(
+        "counter.html"
+    )!!.readBytes()
 
     createContext("/") { exchange ->
         exchange.responseHeaders.add("Content-Type", "text/html")
