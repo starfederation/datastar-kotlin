@@ -92,7 +92,7 @@ publishing {
             pom {
                 name = "Datastar Kotlin SDK"
                 description = "A Kotlin SDK for Datastar"
-                url = "https://github.com/GuillaumeTaffin/datastar-kotlin"
+                url = "https://github.com/starfederation/datastar-kotlin"
                 inceptionYear = "2025"
                 licenses {
                     license {
