@@ -16,6 +16,10 @@ repositories {
 }
 
 dependencies {
+    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.10.2")
+    implementation("io.micronaut.reactor:micronaut-reactor")
     ksp("io.micronaut:micronaut-http-validation")
     ksp("io.micronaut.serde:micronaut-serde-processor")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
@@ -33,7 +37,9 @@ application {
     mainClass = "dev.datastar.kotlin.examples.micronaut.ApplicationKt"
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("21")
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 
@@ -59,7 +65,6 @@ micronaut {
         replaceLogbackXml = true
     }
 }
-
 
 tasks.named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") {
     jdkVersion = "21"
