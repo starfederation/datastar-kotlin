@@ -6,6 +6,7 @@
   * [Spring](#spring)
   * [Quarkus](#quarkus)
   * [Ktor](#ktor)
+  * [Micronaut](#micronaut)
   * [Java HTTP Server](#java-http-server)
 <!-- TOC -->
 [//]: # (@formatter:on)
@@ -29,6 +30,12 @@ These examples use `Quarkus` to serve the front end.
 This example uses `Ktor` to serve the front end.
 
 - [Ktor Routing](ktor/ktor-example/src/main/kotlin/Application.kt): Demonstrates integration with Ktor Routing.
+
+## Micronaut
+
+This example uses `Micronaut` to serve the front end.
+
+- [Micronaut Reactor](micronaut/micronaut-reactor-example/src/main/kotlin/dev/datastar/kotlin/examples/micronaut/MicronautReactorApplication.kt)
 
 ## Java HTTP Server
 
