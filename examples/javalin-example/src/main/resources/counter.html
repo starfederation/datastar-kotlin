@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Counting Stars</title>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(ellipse at center, #0a0010 0%, #000000 50%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .counter-card {
+            background: linear-gradient(145deg,
+            rgba(139, 92, 246, 0.05) 0%,
+            rgba(59, 130, 246, 0.05) 50%,
+            rgba(168, 85, 247, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9),
+            0 0 0 1px rgba(139, 92, 246, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 0 30px rgba(139, 92, 246, 0.4);
+            min-width: 300px;
+            position: relative;
+        }
+
+        .counter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(145deg,
+            rgba(139, 92, 246, 0.02) 0%,
+            transparent 50%,
+            rgba(168, 85, 247, 0.02) 100%);
+            border-radius: 22px;
+            z-index: -1;
+        }
+
+        .counter-title {
+            background: linear-gradient(145deg,
+            #f8fafc 0%,
+            #8b5cf6 25%,
+            #3b82f6 50%,
+            #a855f7 75%,
+            #ec4899 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.8),
+            0 0 60px rgba(59, 130, 246, 0.6),
+            0 0 90px rgba(168, 85, 247, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.7));
+            position: relative;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.7));
+                text-shadow: 0 0 30px rgba(139, 92, 246, 0.8),
+                0 0 60px rgba(59, 130, 246, 0.6),
+                0 0 90px rgba(168, 85, 247, 0.4);
+            }
+            100% {
+                filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.9));
+                text-shadow: 0 0 40px rgba(139, 92, 246, 1),
+                0 0 80px rgba(59, 130, 246, 0.8),
+                0 0 120px rgba(168, 85, 247, 0.6);
+            }
+        }
+
+        .counter-display {
+            background: linear-gradient(145deg, #8b5cf6, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 2rem 0;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.8);
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+        }
+
+        .counter-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .counter-btn {
+            background: linear-gradient(145deg,
+            rgba(139, 92, 246, 0.15) 0%,
+            rgba(59, 130, 246, 0.15) 50%,
+            rgba(168, 85, 247, 0.15) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50%;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 1.8rem;
+            font-weight: bold;
+            height: 70px;
+            width: 70px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .counter-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: linear-gradient(145deg,
+            rgba(139, 92, 246, 0.25) 0%,
+            rgba(59, 130, 246, 0.25) 50%,
+            rgba(168, 85, 247, 0.25) 100%);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4),
+            0 0 15px rgba(139, 92, 246, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .counter-btn:active {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5),
+            0 0 10px rgba(139, 92, 246, 0.4),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+</head>
+<body>
+<div class="counter-card">
+    <h1 class="counter-title">Counting Stars</h1>
+    <div class="counter-display" data-on-load="@get('/counter')">
+        <span id="counter">Loading...</span>
+    </div>
+    <div class="counter-buttons">
+        <button class="counter-btn" data-on-click="@post('/decrement')">−</button>
+        <button class="counter-btn" data-on-click="@post('/increment')">+</button>
+    </div>
+</div>
+
+</body>
+</html>
