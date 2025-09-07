@@ -7,6 +7,7 @@
   * [Quarkus](#quarkus)
   * [Ktor](#ktor)
   * [Micronaut](#micronaut)
+  * [Javalin](#javalin)
   * [Java HTTP Server](#java-http-server)
 <!-- TOC -->
 [//]: # (@formatter:on)
@@ -36,6 +37,12 @@ This example uses `Ktor` to serve the front end.
 This example uses `Micronaut` to serve the front end.
 
 - [Micronaut Reactor](micronaut/micronaut-reactor-example/src/main/kotlin/dev/datastar/kotlin/examples/micronaut/MicronautReactorApplication.kt)
+
+## Javalin
+
+This example uses `Javalin` to serve the front end.
+
+- [Javalin](javalin-example/src/main/kotlin/dev/datastar/kotlin/examples/javalin/JavalinApplication.kt): Demonstrates integration with Javalin web framework.
 
 ## Java HTTP Server
 

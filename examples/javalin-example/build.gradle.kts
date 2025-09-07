@@ -1,0 +1,25 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "2.2.0"
+    application
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = "dev.datastar.kotlin.examples.javalin.JavalinApplicationKt"
+}
+
+dependencies {
+    implementation("io.javalin:javalin:6.7.0")
+    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.slf4j:slf4j-simple:2.0.16")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
