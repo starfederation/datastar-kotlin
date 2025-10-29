@@ -8,6 +8,9 @@ Datastar Kotlin SDK updates.
 
 ### Changed
 
+-
+    - Tested against [Datastar](https://github.com/starfederation/datastar/releases/tag/v1.0.0-RC.6) `v1.0.0-RC.6` (746ddadbd8ad46b0c87ea5f9f628ce906e844627)
+
 ### Deprecated
 
 ### Removed
