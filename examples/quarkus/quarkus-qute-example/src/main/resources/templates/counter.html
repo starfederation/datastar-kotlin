@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Counting Stars</title>
-    <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"></script>
+    <script type="module"
+            src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0-RC.6/bundles/datastar.js"></script>
     <style>
         * {
             margin: 0;
@@ -172,14 +173,14 @@
 <body>
 <div class="counter-card">
     <h1 class="counter-title">Counting Stars</h1>
-    <div class="counter-display" data-on-load="@get('/counter')">
+    <div class="counter-display" data-init="@get('/counter')">
         {#fragment id = "counter"}
             <span id="counter">{value}</span>
         {/fragment}
     </div>
     <div class="counter-buttons">
-        <button class="counter-btn" data-on-click="@post('/decrement')">−</button>
-        <button class="counter-btn" data-on-click="@post('/increment')">+</button>
+        <button class="counter-btn" data-on:click="@post('/decrement')">−</button>
+        <button class="counter-btn" data-on:click="@post('/increment')">+</button>
     </div>
 </div>
 
