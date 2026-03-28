@@ -10,6 +10,8 @@ Datastar Kotlin SDK updates.
 - Added `Request.Method` enum nested inside `Request` interface
 - Added `Request.method()` function returning `Request.Method`
 - Added `ReadSignalsTests` unit tests for `readSignals`
+- Added `namespace` option to `PatchElementsOptions` (`html`, `svg`, `mathml`) per ADR spec
+- Added `ElementNamespace` enum
 
 ### Changed
 
