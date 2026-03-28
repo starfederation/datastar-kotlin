@@ -123,6 +123,60 @@ class SendEventTests {
     }
 
     @Test
+    fun `ElementNamespace invoke resolves known values and defaults for unknown`() {
+        ElementNamespace("html") shouldBe ElementNamespace.Html
+        ElementNamespace("svg") shouldBe ElementNamespace.Svg
+        ElementNamespace("mathml") shouldBe ElementNamespace.MathMl
+        ElementNamespace(null) shouldBe ElementNamespace.Html
+        ElementNamespace("unknown") shouldBe ElementNamespace.Html
+    }
+
+    @Test
+    fun `Check namespace is emitted when non-default`() {
+        val response = TestResponse()
+        val generator = ServerSentEventGenerator(response)
+
+        generator.patchElements(
+            elements = "<svg><circle/></svg>",
+            options =
+                PatchElementsOptions(
+                    namespace = ElementNamespace.Svg,
+                ),
+        )
+
+        response.output shouldBe
+            """
+            event: datastar-patch-elements
+            data: namespace svg
+            data: elements <svg><circle/></svg>
+
+
+            """.trimIndent()
+    }
+
+    @Test
+    fun `Check namespace is not emitted when default`() {
+        val response = TestResponse()
+        val generator = ServerSentEventGenerator(response)
+
+        generator.patchElements(
+            elements = "<div>Test</div>",
+            options =
+                PatchElementsOptions(
+                    namespace = ElementNamespace.Html,
+                ),
+        )
+
+        response.output shouldBe
+            """
+            event: datastar-patch-elements
+            data: elements <div>Test</div>
+
+
+            """.trimIndent()
+    }
+
+    @Test
     fun `Empty elements are ignored`() {
         val response = TestResponse()
         val generator = ServerSentEventGenerator(response)

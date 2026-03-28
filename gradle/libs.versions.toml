@@ -12,6 +12,8 @@ kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref =
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version = "7.2.1" }
 kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.1" }
 jreleaser = { id = "org.jreleaser", version = "1.19.0" }

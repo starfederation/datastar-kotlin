@@ -174,11 +174,13 @@ data class SendEventOptions(
 
 const val DEFAULT_RETRY_DURATION = 1000L
 val DEFAULT_MODE = ElementPatchMode.Outer
+val DEFAULT_NAMESPACE = ElementNamespace.Html
 
 data class PatchElementsOptions(
     val selector: String? = null,
     val mode: ElementPatchMode = DEFAULT_MODE,
     val useViewTransition: Boolean = false,
+    val namespace: ElementNamespace = DEFAULT_NAMESPACE,
     val eventId: String? = null,
     val retryDuration: Long = DEFAULT_RETRY_DURATION,
 )
@@ -199,6 +201,19 @@ enum class ElementPatchMode(
 
     companion object {
         operator fun invoke(value: String?) = entries.firstOrNull { it.value == value } ?: DEFAULT_MODE
+    }
+}
+
+enum class ElementNamespace(
+    val value: String,
+) {
+    Html("html"),
+    Svg("svg"),
+    MathMl("mathml"),
+    ;
+
+    companion object {
+        operator fun invoke(value: String?) = entries.firstOrNull { it.value == value } ?: DEFAULT_NAMESPACE
     }
 }
 
@@ -255,6 +270,7 @@ private class ServerSentEventGeneratorBase(
                 options.selector?.let { add("selector $it") }
                 options.mode.let { if (it != DEFAULT_MODE) add("mode ${it.value}") }
                 options.useViewTransition.let { if (it) add("useViewTransition ${true}") }
+                options.namespace.let { if (it != DEFAULT_NAMESPACE) add("namespace ${it.value}") }
                 (elements ?: "")
                     .lineSequence()
                     .filter { it.isNotBlank() }

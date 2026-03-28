@@ -1,7 +1,11 @@
 import java.util.*
 
 plugins {
-    id("org.jetbrains.changelog") version "2.4.0"
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.spring) apply false
+    alias(libs.plugins.kotlin.allopen) apply false
+    alias(libs.plugins.changelog)
 }
 
 val sdkProperties = Properties().apply {

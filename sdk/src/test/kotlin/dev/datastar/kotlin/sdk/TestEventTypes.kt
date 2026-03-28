@@ -25,6 +25,7 @@ data class Event(
     val signalsRaw: String? = null,
     val signals: JsonObject? = null,
     val onlyIfMissing: Boolean? = null,
+    val namespace: String? = null,
 )
 
 fun handleEvents(
@@ -42,6 +43,7 @@ fun handleEvents(
                             selector = event.selector,
                             mode = ElementPatchMode(event.mode),
                             useViewTransition = event.useViewTransition ?: false,
+                            namespace = ElementNamespace(event.namespace),
                             eventId = event.eventId,
                             retryDuration = event.retryDuration ?: 1000L,
                         ),
