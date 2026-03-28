@@ -9,3 +9,11 @@ changelog {
     introduction = "Datastar Kotlin SDK updates."
     combinePreReleases = false
 }
+
+tasks.register("buildExamples") {
+    group = "verification"
+    description = "Build all included example projects"
+    dependsOn(
+        gradle.includedBuilds.map { it.task(":build") }
+    )
+}
