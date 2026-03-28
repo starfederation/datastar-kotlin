@@ -11,7 +11,7 @@ changelog {
 }
 
 tasks.register("buildExamples") {
-    group = "verification"
+    group = "build"
     description = "Build all included example projects"
     dependsOn(
         gradle.includedBuilds.map { it.task(":build") }
