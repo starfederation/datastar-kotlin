@@ -6,7 +6,13 @@ Datastar Kotlin SDK updates.
 
 ### Added
 
+- Added `buildExamples` Gradle task to build all included example projects
+
 ### Changed
+
+- Upgraded Kotlin from 2.2.21 to 2.3.20
+- Upgraded Gradle from 9.0.0 to 9.4.1
+- Configured Gradle daemon JVM to use GraalVM 25
 
 ### Deprecated
 
