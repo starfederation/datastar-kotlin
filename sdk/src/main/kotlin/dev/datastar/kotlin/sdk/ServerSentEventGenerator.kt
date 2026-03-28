@@ -5,9 +5,17 @@ package dev.datastar.kotlin.sdk
  * Common interface for the Datastar SDK with which adapters must comply.
  */
 interface Request {
+    enum class Method {
+        GET,
+        POST,
+        PUT,
+        PATCH,
+        DELETE,
+    }
+
     fun bodyString(): String
 
-    fun isGet(): Boolean
+    fun method(): Method
 
     fun readParam(string: String): String
 }

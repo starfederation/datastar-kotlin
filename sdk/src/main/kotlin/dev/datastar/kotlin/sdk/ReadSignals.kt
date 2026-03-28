@@ -17,7 +17,7 @@ inline fun <reified T> readSignals(
     request: Request,
     unmarshaller: JsonUnmarshaller<T>,
 ): T {
-    if (request.method in setOf("GET", "DELETE")) {
+    if (request.method() in setOf(Request.Method.GET, Request.Method.DELETE)) {
         return unmarshaller(request.readParam("datastar"))
     }
     return unmarshaller(request.bodyString())

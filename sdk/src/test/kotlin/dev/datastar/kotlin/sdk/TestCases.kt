@@ -743,12 +743,12 @@ val executeScriptWithoutDefaults =
             ),
         output =
             """
-    |event: datastar-patch-elements
-    |data: selector body
-    |data: mode append
-    |data: elements <script data-effect="el.remove()">console.log('hello');</script>
-    |
-    |
+            |event: datastar-patch-elements
+            |data: selector body
+            |data: mode append
+            |data: elements <script data-effect="el.remove()">console.log('hello');</script>
+            |
+            |
             """.trimMargin(),
     )
 

@@ -477,7 +477,7 @@ class DocSnippetsTests {
         object : Request {
             override fun bodyString() = body
 
-            override fun isGet(): Boolean = false
+            override fun method() = Request.Method.POST
 
             override fun readParam(string: String) = ""
         }
@@ -486,7 +486,7 @@ class DocSnippetsTests {
         object : Request {
             override fun bodyString() = ""
 
-            override fun isGet(): Boolean = true
+            override fun method() = Request.Method.GET
 
             override fun readParam(string: String) = query.split("=")[1]
         }

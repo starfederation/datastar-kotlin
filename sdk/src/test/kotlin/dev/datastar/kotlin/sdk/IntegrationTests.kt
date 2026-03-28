@@ -100,7 +100,7 @@ private fun adaptRequest(exchange: HttpExchange): Request =
     object : Request {
         override fun bodyString() = exchange.requestBody.use { it.readAllBytes().decodeToString() }
 
-        override fun isGet() = exchange.requestMethod == "GET"
+        override fun method() = Request.Method.valueOf(exchange.requestMethod)
 
         override fun readParam(string: String) =
             exchange.requestURI.query
