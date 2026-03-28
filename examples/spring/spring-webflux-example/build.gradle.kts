@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk")
+    implementation(project(":sdk"))
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")

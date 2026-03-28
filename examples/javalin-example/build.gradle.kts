@@ -13,7 +13,7 @@ application {
 
 dependencies {
     implementation("io.javalin:javalin:6.7.0")
-    implementation("dev.data-star.kotlin:kotlin-sdk")
+    implementation(project(":sdk"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.slf4j:slf4j-simple:2.0.16")
 }

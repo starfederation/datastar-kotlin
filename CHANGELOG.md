@@ -27,8 +27,6 @@ Datastar Kotlin SDK updates.
 
 ### Fixed
 
-- Fixed indentation in `executeScriptWithoutDefaults` test case output
-
 ### Security
 
 ## 1.0.0-RC3 - 2025-11-01

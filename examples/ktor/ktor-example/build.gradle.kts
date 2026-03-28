@@ -9,6 +9,10 @@ plugins {
 group = "dev.datastar.kotlin"
 version = "0.0.1"
 
+repositories {
+    mavenCentral()
+}
+
 application {
     mainClass = "io.ktor.server.netty.EngineMain"
 }
@@ -20,7 +24,7 @@ java {
 }
 
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk")
+    implementation(project(":sdk"))
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-netty")
     implementation("ch.qos.logback:logback-classic:$logback_version")
