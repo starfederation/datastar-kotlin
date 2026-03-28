@@ -4,7 +4,11 @@ plugins {
 
 rootProject.name = "datastar-kotlin"
 
-include("sdk")
+includeBuild("sdk") {
+    dependencySubstitution {
+        substitute(module("dev.data-star.kotlin:kotlin-sdk")).using(project(":"))
+    }
+}
 
 includeBuild("examples/spring/spring-web-example")
 includeBuild("examples/spring/spring-webflux-example")

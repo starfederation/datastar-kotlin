@@ -1,16 +1,18 @@
 plugins {
-    alias(libs.plugins.changelog)
+    id("org.jetbrains.changelog") version "2.4.0"
 }
 
-version = providers.gradleProperty("version").get()
+val sdkProperties = java.util.Properties().apply {
+    file("sdk/gradle.properties").inputStream().use { load(it) }
+}
 
 changelog {
-    version = project.version.toString()
+    version = sdkProperties.getProperty("version")
     introduction = "Datastar Kotlin SDK updates."
     combinePreReleases = false
 }
 
-tasks.register("buildExamples") {
+tasks.register("buildAll") {
     group = "build"
     description = "Build all included example projects"
     dependsOn(

@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC3")
+    implementation("dev.data-star.kotlin:kotlin-sdk")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.10.2")
     implementation("io.micronaut.reactor:micronaut-reactor")

@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC3")
+    implementation("dev.data-star.kotlin:kotlin-sdk")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

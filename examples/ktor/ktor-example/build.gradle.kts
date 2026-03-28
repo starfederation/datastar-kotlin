@@ -20,7 +20,7 @@ java {
 }
 
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC3")
+    implementation("dev.data-star.kotlin:kotlin-sdk")
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-netty")
     implementation("ch.qos.logback:logback-classic:$logback_version")
