@@ -1,7 +1,7 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "2.2.21"
-    id("org.jetbrains.kotlin.plugin.allopen") version "2.2.21"
-    id("com.google.devtools.ksp") version "2.2.21-2.0.4"
+    id("org.jetbrains.kotlin.jvm") version "2.3.20"
+    id("org.jetbrains.kotlin.plugin.allopen") version "2.3.20"
+    id("com.google.devtools.ksp") version "2.3.6"
     id("io.micronaut.application") version "4.5.4"
     id("com.gradleup.shadow") version "8.3.7"
     id("io.micronaut.aot") version "4.5.4"
@@ -34,7 +34,7 @@ dependencies {
 
 
 application {
-    mainClass = "dev.datastar.kotlin.examples.micronaut.ApplicationKt"
+    mainClass = "dev.datastar.kotlin.examples.micronaut.MicronautReactorApplicationKt"
 }
 java {
     toolchain {
