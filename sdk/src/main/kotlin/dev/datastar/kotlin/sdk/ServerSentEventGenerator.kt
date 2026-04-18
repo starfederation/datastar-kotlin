@@ -17,6 +17,13 @@ interface Request {
 
     fun method(): Method
 
+    /**
+     * Returns the query-parameter value as the adapter reads it from the underlying HTTP request.
+     *
+     * **Contract**: the returned string MUST already be URL-decoded. The SDK passes it straight
+     * to the `JsonUnmarshaller` and does not decode itself. Most web frameworks decode query
+     * parameters by default, so adapters typically satisfy this contract without extra work.
+     */
     fun readParam(string: String): String
 }
 
@@ -223,6 +230,14 @@ data class PatchSignalsOptions(
     val retryDuration: Long = DEFAULT_RETRY_DURATION,
 )
 
+/**
+ * Options for [ServerSentEventGenerator.executeScript].
+ *
+ * Each entry in [attributes] is inserted verbatim into the emitted `<script>` opening tag,
+ * separated by a single space. Entries MUST be well-formed HTML attribute fragments
+ * (e.g. `type="module"`, `data-foo="bar"`). The SDK does not escape or validate them —
+ * tag-breaking input is the caller's responsibility.
+ */
 data class ExecuteScriptOptions(
     val autoRemove: Boolean = true,
     val attributes: List<String> = emptyList(),

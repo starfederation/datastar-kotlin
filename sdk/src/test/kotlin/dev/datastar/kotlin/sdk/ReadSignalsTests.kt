@@ -33,6 +33,24 @@ class ReadSignalsTests {
     }
 
     @Test
+    fun `does not URL-decode the datastar param - adapter must deliver decoded value`() {
+        val captured = mutableListOf<String>()
+        val capturing: JsonUnmarshaller<String> = {
+            captured += it
+            it
+        }
+        val request =
+            createRequest(
+                method = Request.Method.GET,
+                param = "%7B%22a%22%3A1%7D",
+            )
+
+        readSignals(request, capturing)
+
+        captured shouldBe listOf("%7B%22a%22%3A1%7D")
+    }
+
+    @Test
     fun `reads body from POST request`() {
         val request =
             createRequest(
