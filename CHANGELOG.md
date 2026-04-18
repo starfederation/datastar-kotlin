@@ -19,7 +19,7 @@ Datastar Kotlin SDK updates.
 - Upgraded Gradle from 9.0.0 to 9.4.1
 - Configured Gradle daemon JVM to use GraalVM 25
 - `readSignals` now uses `Request.method()` instead of `Request.isGet()`
-- Tested against [Datastar](https://github.com/starfederation/datastar/releases/tag/v1.0.0-RC.8) `v1.0.0-RC.8` (f46ece21f7446f755d17bec79ebadf2262bd9099)
+- Tested against [Datastar](https://github.com/starfederation/datastar/releases/tag/v1.0.0) `v1.0.0` (ecb1d4c4043524c1c5c58681c8337ded544f7a3a)
 
 ### Deprecated
 
