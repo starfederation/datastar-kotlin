@@ -56,6 +56,10 @@ tasks.register<Test>("integrationTest") {
     testClassesDirs = sourceSets.test.get().output.classesDirs
     classpath = sourceSets.test.get().runtimeClasspath
 
+    // Both modules' integration tests bind port 7331 for the Datastar Go golden suite.
+    // Serialize them when both are in the task graph.
+    mustRunAfter(":sdk:integrationTest")
+
     useJUnitPlatform {
         includeTags("integration")
         systemProperty(
