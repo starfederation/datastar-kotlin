@@ -100,9 +100,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = "scm:git:https://github.com/GuillaumeTaffin/datastar-kotlin.git"
-                    developerConnection = "scm:git:ssh://github.com/GuillaumeTaffin/datastar-kotlin.git"
-                    url = "https://github.com/GuillaumeTaffin/datastar-kotlin"
+                    connection = "scm:git:https://github.com/starfederation/datastar-kotlin.git"
+                    developerConnection = "scm:git:ssh://github.com/starfederation/datastar-kotlin.git"
+                    url = "https://github.com/starfederation/datastar-kotlin"
                 }
             }
         }
