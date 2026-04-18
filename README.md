@@ -4,7 +4,6 @@ A Kotlin SDK for Datastar!
 
 - No dependencies, just the standard Kotlin library!
 - 100% Kotlin, no Java dependencies!
-- Multiplatform!
 - Framework-agnostic, adapt to your own context and framework!
 
 ## Getting Started
