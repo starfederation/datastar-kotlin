@@ -23,9 +23,12 @@ repositories {
 }
 
 dependencies {
+    api(project(":sdk-shared"))
+
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.bundles.kotest)
     testImplementation(libs.kotlin.serialization.jvm)
+    testImplementation(testFixtures(project(":sdk-shared")))
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

@@ -1,5 +1,8 @@
-package dev.datastar.kotlin.sdk
+package dev.datastar.kotlin.sdk.blocking
 
+import dev.datastar.kotlin.sdk.ElementPatchMode
+import dev.datastar.kotlin.sdk.JsonUnmarshaller
+import dev.datastar.kotlin.sdk.PatchElementsOptions
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

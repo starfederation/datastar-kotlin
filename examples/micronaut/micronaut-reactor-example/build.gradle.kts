@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":sdk"))
+    implementation(project(":sdk-coroutines"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.10.2")
     implementation("io.micronaut.reactor:micronaut-reactor")

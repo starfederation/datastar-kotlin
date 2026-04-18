@@ -1,32 +1,13 @@
-package dev.datastar.kotlin.sdk
+package dev.datastar.kotlin.sdk.blocking
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import dev.datastar.kotlin.sdk.ElementNamespace
+import dev.datastar.kotlin.sdk.ElementPatchMode
+import dev.datastar.kotlin.sdk.ExecuteScriptOptions
+import dev.datastar.kotlin.sdk.JsonMarshaller
+import dev.datastar.kotlin.sdk.PatchElementsOptions
+import dev.datastar.kotlin.sdk.PatchSignalsOptions
+import dev.datastar.kotlin.sdk.testfixtures.Event
 import kotlinx.serialization.json.JsonObject
-
-@Serializable
-data class EventsWrapper(
-    val events: List<Event>,
-)
-
-@Serializable
-data class Event(
-    val type: String,
-    val elements: String? = null,
-    val script: String? = null,
-    val eventId: String? = null,
-    val retryDuration: Long? = null,
-    val attributes: Map<String, String>? = null,
-    val autoRemove: Boolean? = null,
-    val mode: String? = null,
-    val useViewTransition: Boolean? = null,
-    val selector: String? = null,
-    @SerialName("signals-raw")
-    val signalsRaw: String? = null,
-    val signals: JsonObject? = null,
-    val onlyIfMissing: Boolean? = null,
-    val namespace: String? = null,
-)
 
 fun handleEvents(
     generator: ServerSentEventGenerator,
@@ -52,12 +33,7 @@ fun handleEvents(
 
             "patchSignals" -> {
                 generator.patchSignals(
-                    signals =
-                        if (event.signals != null) {
-                            jsonMarshaller.invoke(event.signals)
-                        } else {
-                            event.signalsRaw!!
-                        },
+                    signals = event.signals?.let(jsonMarshaller::invoke) ?: event.signalsRaw!!,
                     options =
                         PatchSignalsOptions(
                             eventId = event.eventId,

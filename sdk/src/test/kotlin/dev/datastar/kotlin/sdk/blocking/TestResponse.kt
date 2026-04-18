@@ -1,4 +1,4 @@
-package dev.datastar.kotlin.sdk
+package dev.datastar.kotlin.sdk.blocking
 
 import kotlin.properties.Delegates
 

@@ -1,18 +1,19 @@
 package dev.datastar.kotlin
 
-import dev.datastar.kotlin.sdk.Response
-import dev.datastar.kotlin.sdk.ServerSentEventGenerator
+import dev.datastar.kotlin.sdk.coroutines.Response
+import dev.datastar.kotlin.sdk.coroutines.ServerSentEventGenerator
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode.Companion.NoContent
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.Application
 import io.ktor.server.response.respondBytes
-import io.ktor.server.response.respondTextWriter
+import io.ktor.server.response.respondBytesWriter
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
+import io.ktor.utils.io.ByteWriteChannel
+import io.ktor.utils.io.writeStringUtf8
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.io.Writer
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
@@ -25,7 +26,7 @@ fun Application.module() {
 val counter = MutableStateFlow(0)
 
 val counterPage = object {}.javaClass.classLoader.getResourceAsStream(
-    "counter.html"
+    "counter.html",
 )?.readBytes()!!
 
 fun Application.configureRouting() {
@@ -38,22 +39,20 @@ fun Application.configureRouting() {
         }
 
         get("/counter") {
-            call.respondTextWriter(
+            call.respondBytesWriter(
                 status = OK,
                 contentType = ContentType.Text.EventStream,
             ) {
-
                 val response = adaptResponse(this)
                 val generator = ServerSentEventGenerator(response)
 
                 counter.collect { event ->
-                    generator.patchElements("""<span id="counter">${event}</span>""")
+                    generator.patchElements("""<span id="counter">$event</span>""")
 
                     if (event == 3) {
                         generator.executeScript("""alert('Thanks for trying Datastar!')""")
                     }
                 }
-
             }
         }
 
@@ -66,26 +65,23 @@ fun Application.configureRouting() {
             counter.value--
             call.response.status(NoContent)
         }
-
     }
-
 }
 
-private fun adaptResponse(writer: Writer): Response =
+private fun adaptResponse(channel: ByteWriteChannel): Response =
     object : Response {
-        override fun sendConnectionHeaders(
+        override suspend fun sendConnectionHeaders(
             status: Int,
             headers: Map<String, List<String>>,
         ) {
-            // connection is already set up when used
+            // Ktor already set status and Content-Type on respondBytesWriter.
         }
 
-        override fun write(text: String) {
-            writer.write(text)
+        override suspend fun write(text: String) {
+            channel.writeStringUtf8(text)
         }
 
-        override fun flush() {
-            writer.flush()
+        override suspend fun flush() {
+            channel.flush()
         }
     }
-

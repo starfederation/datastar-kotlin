@@ -1,7 +1,10 @@
-package dev.datastar.kotlin.sdk
+package dev.datastar.kotlin.sdk.blocking
 
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
+import dev.datastar.kotlin.sdk.JsonMarshaller
+import dev.datastar.kotlin.sdk.JsonUnmarshaller
+import dev.datastar.kotlin.sdk.testfixtures.EventsWrapper
 import io.kotest.assertions.withClue
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json

@@ -1,4 +1,14 @@
-package dev.datastar.kotlin.sdk
+package dev.datastar.kotlin.sdk.blocking
+
+import dev.datastar.kotlin.sdk.DEFAULT_MODE
+import dev.datastar.kotlin.sdk.DEFAULT_NAMESPACE
+import dev.datastar.kotlin.sdk.DEFAULT_RETRY_DURATION
+import dev.datastar.kotlin.sdk.ElementPatchMode
+import dev.datastar.kotlin.sdk.EventType
+import dev.datastar.kotlin.sdk.ExecuteScriptOptions
+import dev.datastar.kotlin.sdk.PatchElementsOptions
+import dev.datastar.kotlin.sdk.PatchSignalsOptions
+import dev.datastar.kotlin.sdk.SendEventOptions
 
 /**
  * A minimal representation of a Request.
@@ -87,18 +97,6 @@ interface ServerSentEventGenerator {
     /**
      * Sends a server-sent event (SSE) to a connected client.
      * It's the lowest-level API that complies with the Datastar ADR.
-     *
-     * This function is used to transmit a custom event with a specific type, a list of data lines,
-     * and optional settings. The event is formatted according to the SSE protocol,
-     * ensuring compatibility with SSE-capable clients.
-     *
-     * @param eventType The type of event to be sent, represented by the `EventType` enum.
-     * @param dataLines A list of strings representing the data to be included in the event.
-     *                  Each string corresponds to a single "data:" line in the event.
-     *                  Multiple lines of data will result in multiple "data:" fields in the event.
-     * @param options   Additional options for sending the event, encapsulated in the `SendEventOptions` object.
-     *                  These options include fields like `eventId` for identifying the event
-     *                  and `retryDuration` for specifying the reconnection time in case of a failure.
      */
     fun send(
         eventType: EventType,
@@ -108,15 +106,6 @@ interface ServerSentEventGenerator {
 
     /**
      * Updates or modifies specified elements on the client-side based on the provided parameters.
-     *
-     * This function handles patching elements by specifying their content and additional options
-     * such as the selector, patch mode, and view transition configurations. It enables dynamic
-     * updates to elements through server-sent events while allowing optional retry configurations.
-     *
-     * @param elements The content or structure of the elements to be patched, represented as a string.
-     *                 Can be omitted in case of removal if a selector is provided.
-     * @param options  Configuration options for patching elements, encapsulated in a `PatchElementsOptions` object.
-     *                 These include the element selector, patch mode, view transition usage, event ID, and retry duration.
      */
     fun patchElements(
         elements: String? = null,
@@ -125,16 +114,6 @@ interface ServerSentEventGenerator {
 
     /**
      * Patches the signals on the client-side based on the provided parameters.
-     *
-     * This function modifies the state or configuration of signals using the provided
-     * JSON-formatted string, along with optional patch settings. It enables dynamic
-     * behavior updates through server-sent events and supports conditional operations.
-     *
-     * @param signals A JSON-formatted string representing the signals to be patched.
-     *                This string contains the necessary data and configurations for the signals.
-     * @param options Configuration options for patching signals, encapsulated in a `PatchSignalsOptions` object.
-     *                These include conditions such as whether to patch only if signals are missing, the event ID,
-     *                and the retry duration for re-establishing the signals.
      */
     fun patchSignals(
         signals: String,
@@ -143,18 +122,6 @@ interface ServerSentEventGenerator {
 
     /**
      * Executes a client-side script on the connected client.
-     *
-     * This function is used to send JavaScript code to the client for execution.
-     * The script can include optional configuration parameters such as auto-removal,
-     * attributes, an event ID for identification, and a retry duration for handling execution failures.
-     *
-     * @param script The JavaScript code to be executed on the client-side.
-     * @param options Optional configuration parameters for script execution, encapsulated
-     *                in an `ExecuteScriptOptions` object. This includes:
-     *                - `autoRemove`: Whether the script should be automatically removed after execution.
-     *                - `attributes`: A list of custom attributes associated with the script execution.
-     *                - `eventId`: Optionally specifies an event ID for the script.
-     *                - `retryDuration`: Duration (in milliseconds) to specify a retry interval in case of failure.
      */
     fun executeScript(
         script: String,
@@ -166,84 +133,6 @@ fun ServerSentEventGenerator.redirect(url: String) =
     executeScript(
         script = "setTimeout(() => window.location = '$url')",
     )
-
-enum class EventType(
-    val value: String,
-) {
-    PatchElements("datastar-patch-elements"),
-    PatchSignals("datastar-patch-signals"),
-}
-
-data class SendEventOptions(
-    val eventId: String? = null,
-    val retryDuration: Long = DEFAULT_RETRY_DURATION,
-)
-
-const val DEFAULT_RETRY_DURATION = 1000L
-val DEFAULT_MODE = ElementPatchMode.Outer
-val DEFAULT_NAMESPACE = ElementNamespace.Html
-
-data class PatchElementsOptions(
-    val selector: String? = null,
-    val mode: ElementPatchMode = DEFAULT_MODE,
-    val useViewTransition: Boolean = false,
-    val namespace: ElementNamespace = DEFAULT_NAMESPACE,
-    val eventId: String? = null,
-    val retryDuration: Long = DEFAULT_RETRY_DURATION,
-)
-
-enum class ElementPatchMode(
-    val value: String,
-) {
-    Outer("outer"),
-    Inner("inner"),
-    Replace("replace"),
-    Prepend("prepend"),
-    Append("append"),
-    Before("before"),
-    After("after"),
-    Remove(
-        "remove",
-    ), ;
-
-    companion object {
-        operator fun invoke(value: String?) = entries.firstOrNull { it.value == value } ?: DEFAULT_MODE
-    }
-}
-
-enum class ElementNamespace(
-    val value: String,
-) {
-    Html("html"),
-    Svg("svg"),
-    MathMl("mathml"),
-    ;
-
-    companion object {
-        operator fun invoke(value: String?) = entries.firstOrNull { it.value == value } ?: DEFAULT_NAMESPACE
-    }
-}
-
-data class PatchSignalsOptions(
-    val onlyIfMissing: Boolean = false,
-    val eventId: String? = null,
-    val retryDuration: Long = DEFAULT_RETRY_DURATION,
-)
-
-/**
- * Options for [ServerSentEventGenerator.executeScript].
- *
- * Each entry in [attributes] is inserted verbatim into the emitted `<script>` opening tag,
- * separated by a single space. Entries MUST be well-formed HTML attribute fragments
- * (e.g. `type="module"`, `data-foo="bar"`). The SDK does not escape or validate them —
- * tag-breaking input is the caller's responsibility.
- */
-data class ExecuteScriptOptions(
-    val autoRemove: Boolean = true,
-    val attributes: List<String> = emptyList(),
-    val eventId: String? = null,
-    val retryDuration: Long = DEFAULT_RETRY_DURATION,
-)
 
 private class ServerSentEventGeneratorBase(
     private val response: Response,

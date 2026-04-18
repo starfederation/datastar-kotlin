@@ -24,7 +24,7 @@ java {
 }
 
 dependencies {
-    implementation(project(":sdk"))
+    implementation(project(":sdk-coroutines"))
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-netty")
     implementation("ch.qos.logback:logback-classic:$logback_version")

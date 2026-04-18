@@ -26,7 +26,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
       - uses: gradle/actions/setup-gradle@48b5f213c81028ace310571dc5ec0fbbca0b2947 # v4
-      - run: ./gradlew :sdk:build
+      - run: ./gradlew :sdk:build :sdk-shared:build :sdk-coroutines:build
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: failure()
         with:
@@ -73,7 +73,12 @@ jobs:
       - name: Publish to Maven Central
         if: steps.tag_check.outputs.exists == 'false'
         run: >
-          ./gradlew :sdk:build -x :sdk:check :sdk:publish :sdk:jreleaserDeploy --no-configuration-cache
+          ./gradlew
+          :sdk-shared:build :sdk:build :sdk-coroutines:build
+          -x :sdk-shared:check -x :sdk:check -x :sdk-coroutines:check
+          :sdk-shared:publish :sdk:publish :sdk-coroutines:publish
+          :sdk-shared:jreleaserDeploy :sdk:jreleaserDeploy :sdk-coroutines:jreleaserDeploy
+          --no-configuration-cache
         env:
           JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           JRELEASER_MAVENCENTRAL_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}

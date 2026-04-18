@@ -1,7 +1,7 @@
 package dev.datastar.kotlin
 
-import dev.datastar.kotlin.sdk.Response
-import dev.datastar.kotlin.sdk.ServerSentEventGenerator
+import dev.datastar.kotlin.sdk.blocking.Response
+import dev.datastar.kotlin.sdk.blocking.ServerSentEventGenerator
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
