@@ -1,5 +1,4 @@
 import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -11,12 +10,10 @@ plugins {
     `maven-publish`
 }
 
-val sdkCoroutinesProperties = Properties().apply {
-    file("gradle.properties").inputStream().use { load(it) }
-}
+group = providers.gradleProperty("groupId").get()
+version = providers.gradleProperty("version").get()
 
-group = sdkCoroutinesProperties.getProperty("groupId")
-version = sdkCoroutinesProperties.getProperty("version")
+val testSuiteVersion = providers.gradleProperty("datastar.test-suite.version")
 
 repositories {
     mavenCentral()
@@ -64,7 +61,7 @@ tasks.register<Test>("integrationTest") {
         includeTags("integration")
         systemProperty(
             "datastar.test-suite.version",
-            sdkCoroutinesProperties.getProperty("datastar.test-suite.version"),
+            testSuiteVersion.get(),
         )
     }
 }
@@ -97,9 +94,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
-            groupId = sdkCoroutinesProperties.getProperty("groupId")
-            artifactId = sdkCoroutinesProperties.getProperty("artifactId")
-            version = sdkCoroutinesProperties.getProperty("version")
+            artifactId = "kotlin-sdk-coroutines"
 
             pom {
                 name = "Datastar Kotlin SDK — Coroutines"

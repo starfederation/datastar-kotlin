@@ -46,7 +46,7 @@ jobs:
 
       - id: version
         name: Read SDK version
-        run: echo "value=$(grep '^version=' sdk/gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+        run: echo "value=$(grep '^version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
 
       - id: tag_check
         name: Check if release tag already exists

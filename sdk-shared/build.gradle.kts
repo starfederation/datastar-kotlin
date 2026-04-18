@@ -1,5 +1,4 @@
 import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -12,12 +11,8 @@ plugins {
     `maven-publish`
 }
 
-val sdkSharedProperties = Properties().apply {
-    file("gradle.properties").inputStream().use { load(it) }
-}
-
-group = sdkSharedProperties.getProperty("groupId")
-version = sdkSharedProperties.getProperty("version")
+group = providers.gradleProperty("groupId").get()
+version = providers.gradleProperty("version").get()
 
 repositories {
     mavenCentral()
@@ -78,9 +73,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
-            groupId = sdkSharedProperties.getProperty("groupId")
-            artifactId = sdkSharedProperties.getProperty("artifactId")
-            version = sdkSharedProperties.getProperty("version")
+            artifactId = "kotlin-sdk-shared"
 
             pom {
                 name = "Datastar Kotlin SDK — Shared Types"

@@ -1,5 +1,3 @@
-import java.util.*
-
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.serialization) apply false
@@ -8,12 +6,10 @@ plugins {
     alias(libs.plugins.changelog)
 }
 
-val sdkProperties = Properties().apply {
-    file("sdk/gradle.properties").inputStream().use { load(it) }
-}
+val sdkVersion = providers.gradleProperty("version")
 
 changelog {
-    version = sdkProperties.getProperty("version")
+    version = sdkVersion.get()
     introduction = "Datastar Kotlin SDK updates."
     combinePreReleases = false
 }
@@ -21,8 +17,8 @@ changelog {
 tasks.register("verifyChangelog") {
     group = "verification"
     description = "Fails if CHANGELOG.md has no entry for the SDK version."
-    val version = sdkProperties.getProperty("version")
     val changelogFile = file("CHANGELOG.md")
+    val version = sdkVersion.get()
     inputs.file(changelogFile)
     inputs.property("version", version)
     doLast {
@@ -35,4 +31,3 @@ tasks.register("verifyChangelog") {
         }
     }
 }
-
