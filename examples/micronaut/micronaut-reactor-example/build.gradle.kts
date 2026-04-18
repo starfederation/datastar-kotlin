@@ -1,6 +1,6 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "2.3.20"
-    id("org.jetbrains.kotlin.plugin.allopen") version "2.3.20"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.allopen)
     id("com.google.devtools.ksp") version "2.3.6"
     id("io.micronaut.application") version "4.5.4"
     id("com.gradleup.shadow") version "8.3.7"
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC3")
+    implementation(project(":sdk"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.10.2")
     implementation("io.micronaut.reactor:micronaut-reactor")

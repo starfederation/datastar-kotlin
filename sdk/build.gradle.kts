@@ -1,4 +1,5 @@
 import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -10,8 +11,12 @@ plugins {
     `maven-publish`
 }
 
-group = providers.gradleProperty("groupId").get()
-version = providers.gradleProperty("version").get()
+val sdkProperties = Properties().apply {
+    file("gradle.properties").inputStream().use { load(it) }
+}
+
+group = sdkProperties.getProperty("groupId")
+version = sdkProperties.getProperty("version")
 
 repositories {
     mavenCentral()
@@ -48,7 +53,7 @@ tasks.register<Test>("integrationTest") {
         includeTags("integration")
         systemProperty(
             "datastar.test-suite.version",
-            providers.gradleProperty("datastar.test-suite.version").get()
+            sdkProperties.getProperty("datastar.test-suite.version")
         )
     }
 }
@@ -85,9 +90,9 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
-            groupId = providers.gradleProperty("groupId").get()
-            artifactId = providers.gradleProperty("artifactId").get()
-            version = providers.gradleProperty("version").get()
+            groupId = sdkProperties.getProperty("groupId")
+            artifactId = sdkProperties.getProperty("artifactId")
+            version = sdkProperties.getProperty("version")
 
             pom {
                 name = "Datastar Kotlin SDK"

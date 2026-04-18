@@ -1,19 +1,20 @@
+import java.util.*
+
 plugins {
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.spring) apply false
+    alias(libs.plugins.kotlin.allopen) apply false
     alias(libs.plugins.changelog)
 }
 
-version = providers.gradleProperty("version").get()
+val sdkProperties = Properties().apply {
+    file("sdk/gradle.properties").inputStream().use { load(it) }
+}
 
 changelog {
-    version = project.version.toString()
+    version = sdkProperties.getProperty("version")
     introduction = "Datastar Kotlin SDK updates."
     combinePreReleases = false
 }
 
-tasks.register("buildExamples") {
-    group = "build"
-    description = "Build all included example projects"
-    dependsOn(
-        gradle.includedBuilds.map { it.task(":build") }
-    )
-}

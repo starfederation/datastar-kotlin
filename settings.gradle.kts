@@ -1,3 +1,10 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
@@ -5,12 +12,11 @@ plugins {
 rootProject.name = "datastar-kotlin"
 
 include("sdk")
-
-includeBuild("examples/spring/spring-web-example")
-includeBuild("examples/spring/spring-webflux-example")
-includeBuild("examples/quarkus/quarkus-rest-example")
-includeBuild("examples/quarkus/quarkus-qute-example")
-includeBuild("examples/ktor/ktor-example")
-includeBuild("examples/java-httpserver")
-includeBuild("examples/micronaut/micronaut-reactor-example")
-includeBuild("examples/javalin-example")
+include("examples:spring:spring-web-example")
+include("examples:spring:spring-webflux-example")
+include("examples:quarkus:quarkus-rest-example")
+include("examples:quarkus:quarkus-qute-example")
+include("examples:ktor:ktor-example")
+include("examples:java-httpserver")
+include("examples:micronaut:micronaut-reactor-example")
+include("examples:javalin-example")
