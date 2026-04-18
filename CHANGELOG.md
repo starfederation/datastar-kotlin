@@ -6,6 +6,20 @@ Datastar Kotlin SDK updates.
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## 1.0.0-RC4 - 2026-04-18
+
+### Added
+
 - Added `buildExamples` Gradle task to build all included example projects
 - Added `Request.Method` enum nested inside `Request` interface
 - Added `Request.method()` function returning `Request.Method`
@@ -21,15 +35,9 @@ Datastar Kotlin SDK updates.
 - `readSignals` now uses `Request.method()` instead of `Request.isGet()`
 - Tested against [Datastar](https://github.com/starfederation/datastar/releases/tag/v1.0.0) `v1.0.0` (ecb1d4c4043524c1c5c58681c8337ded544f7a3a)
 
-### Deprecated
-
 ### Removed
 
 - Removed `Request.isGet()` in favor of `Request.method()`
-
-### Fixed
-
-### Security
 
 ## 1.0.0-RC3 - 2025-11-01
 
