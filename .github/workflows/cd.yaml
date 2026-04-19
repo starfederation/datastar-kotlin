@@ -70,6 +70,10 @@ jobs:
         if: steps.tag_check.outputs.exists == 'false'
         run: ./gradlew verifyChangelog
 
+      - name: Verify README version
+        if: steps.tag_check.outputs.exists == 'false'
+        run: ./gradlew verifyReadmeVersion
+
       - name: Publish to Maven Central
         if: steps.tag_check.outputs.exists == 'false'
         run: >

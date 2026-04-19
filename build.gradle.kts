@@ -31,3 +31,27 @@ tasks.register("verifyChangelog") {
         }
     }
 }
+
+tasks.register("verifyReadmeVersion") {
+    group = "verification"
+    description = "Fails if README.md references a different SDK version than gradle.properties."
+    val readmeFile = file("README.md")
+    val version = sdkVersion.get()
+    inputs.file(readmeFile)
+    inputs.property("version", version)
+    doLast {
+        val coordRef = Regex("""kotlin-sdk(?:-coroutines)?:([^"\s)]+)""")
+        val xmlVersion = Regex("""<version>([^<]+)</version>""")
+        val text = readmeFile.readText()
+        val mismatches = buildList {
+            coordRef.findAll(text).forEach { if (it.groupValues[1] != version) add(it.value) }
+            xmlVersion.findAll(text).forEach { if (it.groupValues[1] != version) add(it.value) }
+        }
+        if (mismatches.isNotEmpty()) {
+            throw GradleException(
+                "README.md version references do not match SDK version $version: " +
+                    mismatches.joinToString(", "),
+            )
+        }
+    }
+}
