@@ -1,6 +1,9 @@
-package dev.datastar.kotlin.sdk
+package dev.datastar.kotlin.sdk.blocking
 
-import dev.datastar.kotlin.sdk.testcases.datastarTest
+import dev.datastar.kotlin.sdk.ElementNamespace
+import dev.datastar.kotlin.sdk.EventType
+import dev.datastar.kotlin.sdk.PatchElementsOptions
+import dev.datastar.kotlin.sdk.testfixtures.datastarTest
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory

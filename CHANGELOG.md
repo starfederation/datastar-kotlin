@@ -6,7 +6,17 @@ Datastar Kotlin SDK updates.
 
 ### Added
 
+- New `dev.data-star.kotlin:kotlin-sdk-shared` artifact hosting pure types (data classes, enums, constants, JSON typealiases) shared between the blocking and coroutines SDKs. Pulled transitively via `api` dependency from either flavor.
+- New `dev.data-star.kotlin:kotlin-sdk-coroutines` artifact: fully `suspend` public SPI for frameworks whose emit primitives are suspending (Ktor, Spring WebFlux with `kotlinx.coroutines`, Micronaut Reactor with coroutine interop). Depends on `kotlinx-coroutines-core`.
+
 ### Changed
+
+- **Breaking**: Kotlin packages restructured. Shared types remain at `dev.datastar.kotlin.sdk`. The existing blocking `Request`, `Response`, `ServerSentEventGenerator`, `readSignals` (and related extensions) moved to `dev.datastar.kotlin.sdk.blocking`. Suspend counterparts live in `dev.datastar.kotlin.sdk.coroutines`. Users upgrading must update imports.
+- Migrated examples to `kotlin-sdk-coroutines`:
+  - `examples/ktor/ktor-example` now uses `respondBytesWriter` + `ByteWriteChannel` with the suspend SDK.
+  - `examples/spring/spring-webflux-example` no longer wraps writes in `runBlocking`; the suspend `Response.write` calls the reactive sink directly.
+  - `examples/micronaut/micronaut-reactor-example` no longer wraps writes in `runBlocking`.
+- Examples using the blocking SDK (`java-httpserver`, `javalin-example`, `spring-web-example`, `quarkus-rest-example`, `quarkus-qute-example`) updated to the new `dev.datastar.kotlin.sdk.blocking.*` imports.
 
 ### Deprecated
 

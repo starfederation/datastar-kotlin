@@ -1,78 +1,87 @@
 # Datastar Kotlin SDK
 
-A Kotlin SDK for Datastar!
+A Kotlin SDK for Datastar, shipped in two flavors:
 
-- No dependencies, just the standard Kotlin library!
-- 100% Kotlin, no Java dependencies!
-- Framework-agnostic, adapt to your own context and framework!
+- `dev.data-star.kotlin:kotlin-sdk`: blocking. For frameworks with synchronous write primitives (Java `HttpServer`, Javalin, Spring Web MVC, Quarkus REST, Quarkus Qute…).
+- `dev.data-star.kotlin:kotlin-sdk-coroutines`: `suspend`. For frameworks with suspending emit primitives (Ktor, Spring WebFlux, Micronaut Reactor).
+
+Both produce identical Datastar wire output.
 
 ## Getting Started
 
-### Minimum Requirements
-
-The minimum JVM version compatible is **Java 21**.
-
 ### Add the dependency
 
-#### Gradle
+#### Blocking SDK
+
+##### Gradle
 
 ```kotlin
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC3")
+    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC4")
 }
 ```
 
-#### Maven
+##### Maven
 
 ```xml
-
 <dependency>
     <groupId>dev.data-star.kotlin</groupId>
     <artifactId>kotlin-sdk</artifactId>
-    <version>1.0.0-RC3</version>
+    <version>1.0.0-RC4</version>
 </dependency>
 ```
 
-### Usage
+#### Coroutines SDK
 
-The SDK offers APIs to abstract the Datastar protocol while allowing you to adapt it to your own context and framework.
-
-The following shows a simple implementation base of the Java `HttpServer`.
+##### Gradle
 
 ```kotlin
-//  Depending on your context, you'll need to adapt the `Request` and `Response` interfaces, as well as implementation of the `JsonUnmarshaller` type.
-val jsonUnmarshaller: JsonUnmarshaller<YourType> = "... you implementation"
-val request: Request = "... you implementation"
-val response: Response = "... you implementation"
+dependencies {
+    implementation("dev.data-star.kotlin:kotlin-sdk-coroutines:1.0.0-RC4")
+}
+```
 
-// The `readSignals` method extracts the signals from the request.
-// If you use a web framework, you likely don't need this since the framework probably already handles this in its own way.
-// However, this method in the SDK allows you to provide your own unmarshalling strategy so you can adapt it to your preferred technology!
+##### Maven
+
+```xml
+<dependency>
+    <groupId>dev.data-star.kotlin</groupId>
+    <artifactId>kotlin-sdk-coroutines</artifactId>
+    <version>1.0.0-RC4</version>
+</dependency>
+```
+
+### Compatibility
+
+- Java `21`+
+- Kotlin `2.3.20`
+- `kotlin-sdk-coroutines` tested against `kotlinx-coroutines-core` `1.10.2`.
+
+### Usage
+
+The API is identical in both flavors; the coroutines flavor exposes the same methods as `suspend`. Import from `dev.datastar.kotlin.sdk.blocking.*` or `dev.datastar.kotlin.sdk.coroutines.*`.
+
+```kotlin
+import dev.datastar.kotlin.sdk.*
+import dev.datastar.kotlin.sdk.blocking.* // or .coroutines.*
+
+val jsonUnmarshaller: JsonUnmarshaller<YourType> = /* your impl */
+val request: Request = /* your adapter impl */
+val response: Response = /* your adapter impl */
+
 val signals = readSignals<YourType>(request, jsonUnmarshaller)
 
-// Connect a Datastar SSE generator to the response.
 val generator = ServerSentEventGenerator(response)
 
-// Below are some simple examples of how to use the generator.
-generator.patchElements(
-    elements = "<div>Merge</div>",
-)
+generator.patchElements(elements = "<div>Merge</div>")
 
 generator.patchSignals(
-    signals =
-        """
-        {
-          "one":1,
-          "two":2
-        }
-        """,
+    signals = """{"one":1,"two":2}""",
 )
 
-generator.executeScript(
-    script = "alert('Hello World!')",
-)
+generator.executeScript(script = "alert('Hello World!')")
 ```
 
 ### Examples
 
-You can find runnable examples of how to use the SDK in multiple concrete web application frameworks and contexts in the [examples](examples/README.md) folder.
+Runnable examples for each supported framework are listed in [`examples/README.md`](examples/README.md).

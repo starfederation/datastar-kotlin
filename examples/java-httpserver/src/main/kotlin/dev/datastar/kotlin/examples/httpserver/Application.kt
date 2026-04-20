@@ -2,8 +2,8 @@ package dev.datastar.kotlin.examples.httpserver
 
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
-import dev.datastar.kotlin.sdk.Response
-import dev.datastar.kotlin.sdk.ServerSentEventGenerator
+import dev.datastar.kotlin.sdk.blocking.Response
+import dev.datastar.kotlin.sdk.blocking.ServerSentEventGenerator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import java.net.InetSocketAddress

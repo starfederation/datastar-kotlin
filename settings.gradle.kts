@@ -12,6 +12,8 @@ plugins {
 rootProject.name = "datastar-kotlin"
 
 include("sdk")
+include("sdk-shared")
+include("sdk-coroutines")
 include("examples:spring:spring-web-example")
 include("examples:spring:spring-webflux-example")
 include("examples:quarkus:quarkus-rest-example")

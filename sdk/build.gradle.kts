@@ -1,5 +1,4 @@
 import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -11,21 +10,22 @@ plugins {
     `maven-publish`
 }
 
-val sdkProperties = Properties().apply {
-    file("gradle.properties").inputStream().use { load(it) }
-}
+group = providers.gradleProperty("groupId").get()
+version = providers.gradleProperty("version").get()
 
-group = sdkProperties.getProperty("groupId")
-version = sdkProperties.getProperty("version")
+val testSuiteVersion = providers.gradleProperty("datastar.test-suite.version")
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    api(project(":sdk-shared"))
+
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.bundles.kotest)
     testImplementation(libs.kotlin.serialization.jvm)
+    testImplementation(testFixtures(project(":sdk-shared")))
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
@@ -53,7 +53,7 @@ tasks.register<Test>("integrationTest") {
         includeTags("integration")
         systemProperty(
             "datastar.test-suite.version",
-            sdkProperties.getProperty("datastar.test-suite.version")
+            testSuiteVersion.get(),
         )
     }
 }
@@ -90,9 +90,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
-            groupId = sdkProperties.getProperty("groupId")
-            artifactId = sdkProperties.getProperty("artifactId")
-            version = sdkProperties.getProperty("version")
+            artifactId = "kotlin-sdk"
 
             pom {
                 name = "Datastar Kotlin SDK"
@@ -112,9 +110,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = "scm:git:https://github.com/GuillaumeTaffin/datastar-kotlin.git"
-                    developerConnection = "scm:git:ssh://github.com/GuillaumeTaffin/datastar-kotlin.git"
-                    url = "https://github.com/GuillaumeTaffin/datastar-kotlin"
+                    connection = "scm:git:https://github.com/starfederation/datastar-kotlin.git"
+                    developerConnection = "scm:git:ssh://github.com/starfederation/datastar-kotlin.git"
+                    url = "https://github.com/starfederation/datastar-kotlin"
                 }
             }
         }

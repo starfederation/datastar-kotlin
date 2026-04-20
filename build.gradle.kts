@@ -1,5 +1,3 @@
-import java.util.*
-
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.serialization) apply false
@@ -8,12 +6,10 @@ plugins {
     alias(libs.plugins.changelog)
 }
 
-val sdkProperties = Properties().apply {
-    file("sdk/gradle.properties").inputStream().use { load(it) }
-}
+val sdkVersion = providers.gradleProperty("version")
 
 changelog {
-    version = sdkProperties.getProperty("version")
+    version = sdkVersion.get()
     introduction = "Datastar Kotlin SDK updates."
     combinePreReleases = false
 }
@@ -21,8 +17,8 @@ changelog {
 tasks.register("verifyChangelog") {
     group = "verification"
     description = "Fails if CHANGELOG.md has no entry for the SDK version."
-    val version = sdkProperties.getProperty("version")
     val changelogFile = file("CHANGELOG.md")
+    val version = sdkVersion.get()
     inputs.file(changelogFile)
     inputs.property("version", version)
     doLast {
@@ -36,3 +32,26 @@ tasks.register("verifyChangelog") {
     }
 }
 
+tasks.register("verifyReadmeVersion") {
+    group = "verification"
+    description = "Fails if README.md references a different SDK version than gradle.properties."
+    val readmeFile = file("README.md")
+    val version = sdkVersion.get()
+    inputs.file(readmeFile)
+    inputs.property("version", version)
+    doLast {
+        val coordRef = Regex("""kotlin-sdk(?:-coroutines)?:([^"\s)]+)""")
+        val xmlVersion = Regex("""<version>([^<]+)</version>""")
+        val text = readmeFile.readText()
+        val mismatches = buildList {
+            coordRef.findAll(text).forEach { if (it.groupValues[1] != version) add(it.value) }
+            xmlVersion.findAll(text).forEach { if (it.groupValues[1] != version) add(it.value) }
+        }
+        if (mismatches.isNotEmpty()) {
+            throw GradleException(
+                "README.md version references do not match SDK version $version: " +
+                    mismatches.joinToString(", "),
+            )
+        }
+    }
+}

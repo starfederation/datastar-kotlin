@@ -1,5 +1,6 @@
-package dev.datastar.kotlin.sdk
+package dev.datastar.kotlin.sdk.blocking
 
+import dev.datastar.kotlin.sdk.JsonUnmarshaller
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 

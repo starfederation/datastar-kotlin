@@ -1,7 +1,7 @@
 package dev.datastar.kotlin.examples.spring.web
 
-import dev.datastar.kotlin.sdk.Response
-import dev.datastar.kotlin.sdk.ServerSentEventGenerator
+import dev.datastar.kotlin.sdk.blocking.Response
+import dev.datastar.kotlin.sdk.blocking.ServerSentEventGenerator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import org.springframework.boot.autoconfigure.SpringBootApplication

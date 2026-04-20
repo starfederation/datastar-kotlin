@@ -1,12 +1,10 @@
 package dev.datastar.kotlin.examples.spring.webflux
 
-import dev.datastar.kotlin.sdk.Response
-import dev.datastar.kotlin.sdk.ServerSentEventGenerator
-import kotlinx.coroutines.Dispatchers
+import dev.datastar.kotlin.sdk.coroutines.Response
+import dev.datastar.kotlin.sdk.coroutines.ServerSentEventGenerator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.reactor.flux
-import kotlinx.coroutines.runBlocking
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.core.io.buffer.DataBuffer
@@ -26,7 +24,6 @@ fun main(args: Array<String>) {
     runApplication<SpringWebfluxExampleApplication>(*args)
 }
 
-
 @RestController
 class CounterController {
 
@@ -44,17 +41,14 @@ class CounterController {
 
     @GetMapping("/counter")
     fun counter(response: ServerHttpResponse) = datastarFlux(response) {
-
         counter.collect { event ->
-            patchElements("""<span id="counter">${event}</span>""")
+            patchElements("""<span id="counter">$event</span>""")
 
             if (event == 3) {
                 executeScript("""alert('Thanks for trying Datastar!')""")
             }
         }
-
     }
-
 
     @PostMapping("/increment")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -67,44 +61,39 @@ class CounterController {
     fun decrement() {
         counter.value--
     }
-
 }
 
 fun datastarFlux(
     response: ServerHttpResponse,
-    sender: suspend ServerSentEventGenerator.() -> Unit
-): Flux<DataBuffer> {
-    return flux {
-        val generator = ServerSentEventGenerator(
+    sender: suspend ServerSentEventGenerator.() -> Unit,
+): Flux<DataBuffer> =
+    flux {
+        val adapter =
             SpringReactiveResponse(
-                response,
-                send = ::send
+                response = response,
+                send = ::send,
             )
-        )
+        val generator = ServerSentEventGenerator(adapter)
         sender(generator)
     }
-}
 
 class SpringReactiveResponse(
     private val response: ServerHttpResponse,
-    private val send: suspend (DataBuffer) -> Unit
+    private val send: suspend (DataBuffer) -> Unit,
 ) : Response {
-
     private val factory = response.bufferFactory()
 
-    override fun sendConnectionHeaders(
+    override suspend fun sendConnectionHeaders(
         status: Int,
-        headers: Map<String, List<String>>
+        headers: Map<String, List<String>>,
     ) {
         response.statusCode = HttpStatus.valueOf(status)
         response.headers.putAll(headers)
     }
 
-    override fun write(text: String) {
-        runBlocking(Dispatchers.IO) {
-            send(factory.wrap(text.toByteArray()))
-        }
+    override suspend fun write(text: String) {
+        send(factory.wrap(text.toByteArray()))
     }
 
-    override fun flush() = Unit
+    override suspend fun flush() = Unit
 }

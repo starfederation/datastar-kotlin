@@ -1,7 +1,5 @@
-package dev.datastar.kotlin.sdk.testcases
+package dev.datastar.kotlin.sdk.testfixtures
 
-import dev.datastar.kotlin.sdk.Event
-import dev.datastar.kotlin.sdk.EventsWrapper
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 
 data class TestCase(
