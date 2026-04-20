@@ -143,3 +143,7 @@ jreleaser {
         }
     }
 }
+
+tasks.named("jreleaserDeploy") {
+    dependsOn(tasks.named("publish"))
+}
