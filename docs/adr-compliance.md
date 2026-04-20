@@ -15,7 +15,7 @@ It exists so that:
   [`ecb1d4c4043524c1c5c58681c8337ded544f7a3a`](https://github.com/starfederation/datastar/blob/ecb1d4c4043524c1c5c58681c8337ded544f7a3a/sdk/ADR.md)
   (corresponds to release
   [`v1.0.0`](https://github.com/starfederation/datastar/releases/tag/v1.0.0)).
-- **SDK version analyzed**: `1.0.0-RC4` (from `sdk/gradle.properties`).
+- **SDK version analyzed**: `1.0.0-RC5` (from `sdk/gradle.properties`).
 - **Source of truth for the pinned version**: the property
   `datastar.test-suite.version` in `sdk/gradle.properties`. Update that
   property first when re-pinning — it drives the integration-test suite.

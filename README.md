@@ -17,7 +17,7 @@ Both produce identical Datastar wire output.
 
 ```kotlin
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC4")
+    implementation("dev.data-star.kotlin:kotlin-sdk:1.0.0-RC5")
 }
 ```
 
@@ -27,7 +27,7 @@ dependencies {
 <dependency>
     <groupId>dev.data-star.kotlin</groupId>
     <artifactId>kotlin-sdk</artifactId>
-    <version>1.0.0-RC4</version>
+    <version>1.0.0-RC5</version>
 </dependency>
 ```
 
@@ -37,7 +37,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("dev.data-star.kotlin:kotlin-sdk-coroutines:1.0.0-RC4")
+    implementation("dev.data-star.kotlin:kotlin-sdk-coroutines:1.0.0-RC5")
 }
 ```
 
@@ -47,7 +47,7 @@ dependencies {
 <dependency>
     <groupId>dev.data-star.kotlin</groupId>
     <artifactId>kotlin-sdk-coroutines</artifactId>
-    <version>1.0.0-RC4</version>
+    <version>1.0.0-RC5</version>
 </dependency>
 ```
 
